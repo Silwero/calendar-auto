@@ -58,6 +58,7 @@
             "before": false,
             "after": true
         }],
+        "react/prop-types": 0,
         "comma-style": ["error", "last"],
         "computed-property-spacing": ["error", "never"],
         "eol-last": ["error", "always"],
