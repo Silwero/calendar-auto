@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BottomActions } from '../../component/BottomActions/BottomActions';
+import { AddVehicleModal } from '../../component/AddVehicleModal/AddVehicleModal';
 
 export const HomePage = () => {
   return (
@@ -48,9 +49,10 @@ export const HomePage = () => {
       </Container>
       <BottomActions>
         <Button>
-          ADD +
+          + Add vehicle
         </Button>
       </BottomActions>
+      <AddVehicleModal/>
     </>
   );
 };
