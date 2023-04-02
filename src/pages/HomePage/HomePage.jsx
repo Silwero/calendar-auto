@@ -9,11 +9,24 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
+import { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BottomActions } from '../../component/BottomActions/BottomActions';
 import { AddVehicleModal } from '../../component/AddVehicleModal/AddVehicleModal';
 
 export const HomePage = () => {
+  const [isAddVehicleModalOpen, setIsAddVehicleModalOpen] = useState(false);
+  const handleAddVehicleClick = () => {
+    setIsAddVehicleModalOpen(true);
+  };
+  const handleAddVehicleModalClose = () => {
+    setIsAddVehicleModalOpen(false);
+  };
+
+  const saveNewVehicle = () => {
+    console.log('save');
+  };
+
   return (
     <>
       <Container maxWidth="md">
@@ -48,11 +61,15 @@ export const HomePage = () => {
         </Paper>
       </Container>
       <BottomActions>
-        <Button>
+        <Button onClick={handleAddVehicleClick}>
           + Add vehicle
         </Button>
       </BottomActions>
-      <AddVehicleModal/>
+      <AddVehicleModal
+        open={isAddVehicleModalOpen}
+        handleClose={handleAddVehicleModalClose}
+        handleSubmit={saveNewVehicle}
+      />
     </>
   );
 };
