@@ -1,8 +1,8 @@
 import { Dialog } from '@mui/material';
 
-export const Modal = ({ children, open }) => {
+export const Modal = ({ children, open, handleClose }) => {
   return (
-    <Dialog fullWidth maxWidth="sm" open={open}>
+    <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
       {children}
     </Dialog>
   );
