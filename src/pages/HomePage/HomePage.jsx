@@ -1,19 +1,15 @@
 import {
   Button,
   Container,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Paper,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { BottomActions } from '../../component/BottomActions/BottomActions';
 import { AddVehicleModal } from '../../component/AddVehicleModal/AddVehicleModal';
 import { nanoid } from 'nanoid';
+import { VehicleListItem } from '../../component/VehicleList/VehicleListItem';
+import { VehicleList } from '../../component/VehicleList/VehicleList';
 
 export const HomePage = () => {
   const [isAddVehicleModalOpen, setIsAddVehicleModalOpen] = useState(false);
@@ -56,25 +52,9 @@ export const HomePage = () => {
       <Container maxWidth="md">
         <Typography component="h1" variant="h1">My cars</Typography>
         <Paper>
-          <List>
-            {vehicleList.map(vehicle => {
-              return (
-                <ListItem
-                  key={vehicle.id}
-                  secondaryAction={
-                    <IconButton onClick={() => deleteVehicle(vehicle.id)} edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                  disablePadding
-                >
-                  <ListItemButton dense>
-                    <ListItemText primary={vehicle.name} />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
+          <VehicleList vehicleList={vehicleList} deleteVehicle={deleteVehicle}>
+            <VehicleListItem deleteVehicle={deleteVehicle} vehicleList={vehicleList} />
+          </VehicleList>
         </Paper>
       </Container>
       <BottomActions>
@@ -90,3 +70,4 @@ export const HomePage = () => {
     </>
   );
 };
+
