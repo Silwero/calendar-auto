@@ -1,17 +1,11 @@
-import { IconButton, ListItem, ListItemButton, ListItemText } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { VehicleListItemActions } from './VehicleListItemActions';
 
-export const VehicleListItem = ({ name, hadleDelete }) => {
+export const VehicleListItem = ({ name, handleDelete }) => {
   return (
     <ListItem
       secondaryAction={
-        <IconButton
-          onClick={hadleDelete}
-          edge="end"
-          aria-label="delete"
-        >
-          <DeleteIcon />
-        </IconButton>
+        <VehicleListItemActions handleDelete={handleDelete} />
       }
       disablePadding
     >

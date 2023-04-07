@@ -5,7 +5,7 @@ export const VehicleList = ({ vehicleList, deleteVehicle }) => {
   return (
     <List>
       {vehicleList.map(({ name, id }) => {
-        return <VehicleListItem name={name} key={id} hadleDelete={() => deleteVehicle(id)} />;
+        return <VehicleListItem name={name} key={id} handleDelete={() => deleteVehicle(id)} />;
       })}
     </List>
   );
