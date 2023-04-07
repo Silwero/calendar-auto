@@ -4,7 +4,7 @@ import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const VehicleListItemActions = ({ handleDelete }) => {
+export const VehicleListItemActions = ({ handleDelete, handleEditVehicleClick }) => {
   const [anchorEl, setAnchoEl] = useState(null);
 
   const handleClick = event => {
@@ -13,6 +13,11 @@ export const VehicleListItemActions = ({ handleDelete }) => {
 
   const handleClose = () => {
     setAnchoEl(null);
+  };
+
+  const handleEdit = () => {
+    handleEditVehicleClick();
+    handleClose();
   };
 
   return (
@@ -25,7 +30,7 @@ export const VehicleListItemActions = ({ handleDelete }) => {
         open={!!anchorEl}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleEdit} disableRipple>
           <EditIcon sx={{ mr: 2 }} />
           Edit
         </MenuItem>

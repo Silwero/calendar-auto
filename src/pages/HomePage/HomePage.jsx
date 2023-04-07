@@ -8,11 +8,12 @@ import { useState } from 'react';
 import { BottomActions } from '../../component/BottomActions/BottomActions';
 import { AddVehicleModal } from '../../component/AddVehicleModal/AddVehicleModal';
 import { nanoid } from 'nanoid';
-import { VehicleListItem } from '../../component/VehicleList/VehicleListItem';
 import { VehicleList } from '../../component/VehicleList/VehicleList';
+import { EditVehicleModal } from '../../component/EditVehicleModal/EditVehicleModal';
 
 export const HomePage = () => {
   const [isAddVehicleModalOpen, setIsAddVehicleModalOpen] = useState(false);
+  const [isEditVehicleModalOpen, setIsEditVehicleModalOpen] = useState(false);
   const [vehicleList, setVehicleList] = useState([
     {
       id: 1,
@@ -28,8 +29,16 @@ export const HomePage = () => {
     setIsAddVehicleModalOpen(true);
   };
 
+  const handleEditVehicleClick = () => {
+    setIsEditVehicleModalOpen(true);
+  };
+
   const handleAddVehicleModalClose = () => {
     setIsAddVehicleModalOpen(false);
+  };
+
+  const handleEditVehicleModalClose = () => {
+    setIsEditVehicleModalOpen(false);
   };
 
   const saveNewVehicle = name => {
@@ -37,6 +46,12 @@ export const HomePage = () => {
       id: nanoid(),
       name,
     }]);
+
+    setIsAddVehicleModalOpen(false);
+  };
+
+  const editVehicle = () => {
+    console.log('edit');
 
     setIsAddVehicleModalOpen(false);
   };
@@ -52,9 +67,11 @@ export const HomePage = () => {
       <Container maxWidth="md">
         <Typography component="h1" variant="h1">My cars</Typography>
         <Paper>
-          <VehicleList vehicleList={vehicleList} deleteVehicle={deleteVehicle}>
-            <VehicleListItem deleteVehicle={deleteVehicle} vehicleList={vehicleList} />
-          </VehicleList>
+          <VehicleList
+            vehicleList={vehicleList}
+            deleteVehicle={deleteVehicle}
+            handleEditVehicleClick={handleEditVehicleClick}
+          />
         </Paper>
       </Container>
       <BottomActions>
@@ -66,6 +83,11 @@ export const HomePage = () => {
         open={isAddVehicleModalOpen}
         handleClose={handleAddVehicleModalClose}
         handleSubmit={saveNewVehicle}
+      />
+      <EditVehicleModal
+        open={isEditVehicleModalOpen}
+        handleClose={handleEditVehicleModalClose}
+        handleSubmit={editVehicle}
       />
     </>
   );
