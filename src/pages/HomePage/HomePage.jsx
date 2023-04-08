@@ -13,7 +13,7 @@ import { EditVehicleModal } from '../../component/EditVehicleModal/EditVehicleMo
 
 export const HomePage = () => {
   const [isAddVehicleModalOpen, setIsAddVehicleModalOpen] = useState(false);
-  const [isEditVehicleModalOpen, setIsEditVehicleModalOpen] = useState(false);
+  const [currentEditVehicleId, setCurrentEditVehicleId] = useState(null);
   const [vehicleList, setVehicleList] = useState([
     {
       id: 1,
@@ -29,8 +29,8 @@ export const HomePage = () => {
     setIsAddVehicleModalOpen(true);
   };
 
-  const handleEditVehicleClick = () => {
-    setIsEditVehicleModalOpen(true);
+  const handleEditVehicleClick = id => {
+    setCurrentEditVehicleId(id);
   };
 
   const handleAddVehicleModalClose = () => {
@@ -38,7 +38,7 @@ export const HomePage = () => {
   };
 
   const handleEditVehicleModalClose = () => {
-    setIsEditVehicleModalOpen(false);
+    setCurrentEditVehicleId(null);
   };
 
   const saveNewVehicle = name => {
@@ -50,16 +50,25 @@ export const HomePage = () => {
     setIsAddVehicleModalOpen(false);
   };
 
-  const editVehicle = () => {
-    console.log('edit');
+  const editVehicle = newName => {
+    const newVehicleList = vehicleList.filter(vehicle => vehicle.id !== currentEditVehicleId);
 
-    setIsAddVehicleModalOpen(false);
+    setVehicleList([...newVehicleList, {
+      id: currentEditVehicleId,
+      name: newName,
+    }]);
+
+    setCurrentEditVehicleId(null);
   };
 
   const deleteVehicle = vehicleId => {
     const newVehicleList = vehicleList.filter(vehicle => vehicleId !== vehicle.id);
 
     setVehicleList(newVehicleList);
+  };
+
+  const getVehicleById = id => {
+    return vehicleList.find(vehicle => id === vehicle.id);
   };
 
   return (
@@ -85,9 +94,10 @@ export const HomePage = () => {
         handleSubmit={saveNewVehicle}
       />
       <EditVehicleModal
-        open={isEditVehicleModalOpen}
+        open={!!currentEditVehicleId}
         handleClose={handleEditVehicleModalClose}
         handleSubmit={editVehicle}
+        currentVehicle={getVehicleById(currentEditVehicleId)}
       />
     </>
   );

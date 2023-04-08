@@ -1,9 +1,13 @@
 import { Button, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { Modal } from '../base/Modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export const EditVehicleModal = ({ open, handleClose, handleSubmit }) => {
+export const EditVehicleModal = ({ open, handleClose, handleSubmit, currentVehicle }) => {
   const [vehicleName, setVehicleName] = useState('');
+
+  useEffect(() => {
+    setVehicleName(currentVehicle?.name);
+  }, [currentVehicle]);
 
   const onSubmit = event => {
     event.preventDefault();
