@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 
 export const EditVehicleModal = ({ open, handleClose, handleSubmit, currentVehicle }) => {
   const [vehicleName, setVehicleName] = useState('');
+  const [isInputChanged, setIsInputChanged] = useState(false);
 
   useEffect(() => {
-    setVehicleName(currentVehicle?.name);
+    setIsInputChanged(false);
+    setVehicleName(currentVehicle?.name || '');
   }, [currentVehicle]);
 
   const onSubmit = event => {
@@ -17,6 +19,7 @@ export const EditVehicleModal = ({ open, handleClose, handleSubmit, currentVehic
   };
 
   const handleVehicleNameChange = ({ target }) => {
+    setIsInputChanged(true);
     setVehicleName(target.value);
   };
 
@@ -38,7 +41,7 @@ export const EditVehicleModal = ({ open, handleClose, handleSubmit, currentVehic
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="error">Cancel</Button>
-          <Button type="submit">Save</Button>
+          <Button type="submit" disabled={!isInputChanged}>Save</Button>
         </DialogActions>
       </form>
     </Modal>
