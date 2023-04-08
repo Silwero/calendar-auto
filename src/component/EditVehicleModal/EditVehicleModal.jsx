@@ -1,9 +1,15 @@
 import { Button, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { Modal } from '../base/Modal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export const EditVehicleModal = ({ open, handleClose, handleSubmit }) => {
+export const EditVehicleModal = ({ open, handleClose, handleSubmit, currentVehicle }) => {
   const [vehicleName, setVehicleName] = useState('');
+  const [isInputChanged, setIsInputChanged] = useState(false);
+
+  useEffect(() => {
+    setIsInputChanged(false);
+    setVehicleName(currentVehicle?.name || '');
+  }, [currentVehicle]);
 
   const onSubmit = event => {
     event.preventDefault();
@@ -13,6 +19,7 @@ export const EditVehicleModal = ({ open, handleClose, handleSubmit }) => {
   };
 
   const handleVehicleNameChange = ({ target }) => {
+    setIsInputChanged(true);
     setVehicleName(target.value);
   };
 
@@ -34,7 +41,7 @@ export const EditVehicleModal = ({ open, handleClose, handleSubmit }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="error">Cancel</Button>
-          <Button type="submit">Save</Button>
+          <Button type="submit" disabled={!isInputChanged}>Save</Button>
         </DialogActions>
       </form>
     </Modal>
